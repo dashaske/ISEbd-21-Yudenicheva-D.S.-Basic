@@ -38,8 +38,8 @@ namespace WindowsFormsAirplane
 
         public void SetPosition(int x, int y, int width, int height)
         {
-            _startPosX = x + 50;
-            _startPosY = y + 75;
+            _startPosX = x;
+            _startPosY = y;
             _pictureWidth = width;
             _pictureHeight = height;
         }
