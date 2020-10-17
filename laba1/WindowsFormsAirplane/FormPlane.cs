@@ -12,7 +12,7 @@ namespace WindowsFormsAirplane
 {
     public partial class FormPlane : Form
     {
-        private Bomber plane;
+        private ITransport plane;
         public FormPlane()
         {
             InitializeComponent();
@@ -22,22 +22,10 @@ namespace WindowsFormsAirplane
         {
             Bitmap bmp = new Bitmap(pictureBoxAirplane.Width, pictureBoxAirplane.Height);
             Graphics gr = Graphics.FromImage(bmp);
-            plane.DrawAirplane(gr);
+            plane.DrawFly(gr);
             pictureBoxAirplane.Image = bmp;
         }
-
        
-        private void buttonCreate_Click(object sender, EventArgs e)
-        {
-            Random rnd = new Random();
-            plane = new Bomber(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Gray,
-           Color.Black, true, true, true);
-            plane.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxAirplane.Width,
-           pictureBoxAirplane.Height);
-            Draw();
-        }
-
-
         private void buttonMove_Click(object sender, EventArgs e)
         {
             //получаем имя кнопки
@@ -45,18 +33,36 @@ namespace WindowsFormsAirplane
             switch (name)
             {
                 case "buttonUp":
-                    plane.MovePlane(Direction.Up);
+                    plane.MoveTransport(Direction.Up);
                     break;
                 case "buttonDown":
-                    plane.MovePlane(Direction.Down);
+                    plane.MoveTransport(Direction.Down);
                     break;
                 case "buttonLeft":
-                    plane.MovePlane(Direction.Left);
+                    plane.MoveTransport(Direction.Left);
                     break;
                 case "buttonRight":
-                    plane.MovePlane(Direction.Right);
+                    plane.MoveTransport(Direction.Right);
                     break;
             }
+            Draw();
+        }
+
+        private void buttonCreateWar_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            plane = new WarPlane(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.ForestGreen, Color.Yellow);
+            plane.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxAirplane.Width,
+            pictureBoxAirplane.Height);
+            Draw();
+        }
+
+        private void buttonCreateBomber_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            plane = new Bomber(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Gray, Color.Black, true, true, true);
+            plane.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxAirplane.Width,
+           pictureBoxAirplane.Height);
             Draw();
         }
     }
