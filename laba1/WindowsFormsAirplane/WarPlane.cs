@@ -93,21 +93,21 @@ namespace WindowsFormsAirplane
             g.DrawRectangle(pen, _startPosX + 75, _startPosY - 10, 25, 120);   //границы самолета
 
             Brush brRed = new SolidBrush(MainColor);
-            g.FillRectangle(brRed, _startPosX, _startPosY + 40, 130, 20);         //закрас тела
+            g.FillRectangle(brRed, _startPosX, _startPosY + 40, 130, 20);    //закрас тела
 
             Brush brGreen = new SolidBrush(MainColor);
             g.FillRectangle(brGreen, _startPosX + 75, _startPosY - 10, 25, 120);
-            g.DrawRectangle(pen, _startPosX + 5, _startPosY + 25, 15, 50);        //тело
+            g.DrawRectangle(pen, _startPosX + 5, _startPosY + 25, 15, 50);           //тело
             g.FillRectangle(brGreen, _startPosX + 5, _startPosY + 25, 15, 50);
 
-            Brush brBrown = new SolidBrush(DopColor);
+            Brush brBrown = new SolidBrush(MainColor);
             g.FillEllipse(brBrown, _startPosX + 95, _startPosY, 10, 30);
             g.DrawEllipse(pen, _startPosX + 95, _startPosY, 10, 30);
-            g.FillEllipse(brBrown, _startPosX + 95, _startPosY + 70, 10, 30);     //Ellipse
+            g.FillEllipse(brBrown, _startPosX + 95, _startPosY + 70, 10, 30);     //круги около бомб
             g.DrawEllipse(pen, _startPosX + 95, _startPosY + 70, 10, 30);
 
             Brush brBlue = new SolidBrush(MainColor);
-            g.FillEllipse(brBlue, _startPosX + 70, _startPosY + 42, 30, 15);      //центральный Ellipse
+            g.FillEllipse(brBlue, _startPosX + 70, _startPosY + 42, 30, 15);           //центральный круг
             g.DrawEllipse(pen, _startPosX + 70, _startPosY + 42, 30, 15);
         }
     }

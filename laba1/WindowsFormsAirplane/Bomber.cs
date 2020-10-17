@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsAirplane
 {
-    class Bomber : WarPlane
-    {
+    public class Bomber : WarPlane
+    {      
         /// Признак наличия звезды
         public bool Star { private set; get; }
 
@@ -17,7 +17,7 @@ namespace WindowsFormsAirplane
 
         /// Признак наличия ракет
         public bool Rocket { private set; get; }
-
+    
         public Bomber(int maxSpeed, float weight, Color mainColor, Color dopColor,
        bool star, bool bomb, bool rocket) :
         base(maxSpeed, weight, mainColor, dopColor)
@@ -27,6 +27,46 @@ namespace WindowsFormsAirplane
             Bomb = bomb;
             Rocket = rocket;
         }
+        /// <summary>
+        /// Изменение направления пермещения
+        /// </summary>
+        /// <param name="direction">Направление</param>
+        public void MovePlane(Direction direction)
+        {
+            float step = MaxSpeed * 100 / Weight;
+            switch (direction)
+            {
+                // вправо
+                case Direction.Right:
+                    if (_startPosX + step < _pictureWidth - planeWidth)
+                    {
+                        _startPosX += step;
+                    }
+                    break;
+                //влево
+                case Direction.Left:
+                    if (_startPosX - step > 0)
+                    {
+                        _startPosX -= step;
+                    }
+                    break;
+                //вверх
+                case Direction.Up:
+                    if (_startPosY - step > 0)
+                    {
+                        _startPosY -= step;
+                    }
+                    break;
+                //вниз
+                case Direction.Down:
+                    if (_startPosY + step < _pictureHeight - planeHeight)
+                    {
+                        _startPosY += step;
+                    }
+                    break;
+            }
+        }
+
         public override void DrawFly(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
@@ -50,8 +90,6 @@ namespace WindowsFormsAirplane
             }
 
             //отрисовка тела
-            base.DrawFly(g);
-
             if (Star)
             {
                 Point point1 = new Point((int)_startPosX + 85, (int)_startPosY + 60);
@@ -70,6 +108,7 @@ namespace WindowsFormsAirplane
                 Point point12 = new Point((int)_startPosX + 85, (int)_startPosY + 40);
                 Point[] board1 = { point7, point8, point9, point10, point11, point12 };
                 g.DrawPolygon(pen, board1);
+                base.DrawFly(g);
             }
         }
     }
