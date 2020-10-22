@@ -9,84 +9,78 @@ namespace WindowsFormsAirplane
 {// Параметризованный класс для хранения набора объектов от интерфейса ITransport
     public class Airport<T> where T : class, ITransport
     {
-        //массив объектов
-        private T[] _places;
+        //Массив объектов
+        private readonly List<T> _places;
 
-        private int PictureWidth { get; set; }
+        // Максимальное количество мест на парковке
+        private readonly int _maxCount;
 
-        private int PictureHeight { get; set; }
+        private readonly int pictureWidth;
 
-        //высота парковочного места
-        private const int _placeSizeWidth = 210;
+        private readonly int pictureHeight;
 
-        //ширина парковочного места
-        private const int _placeSizeHeight = 133;
+        //Высота парковочного места
+        private readonly int _placeSizeWidth = 210;
 
-        public Airport(int sizes, int pictureWidth, int pictureHeight)
+        //Ширина парковочного места
+        private readonly int _placeSizeHeight = 133;
+
+        public Airport(int picWidth, int picHeight)
         {
-            _places = new T[sizes];
-            PictureWidth = pictureWidth;
-            PictureHeight = pictureHeight;
-            for (int i = 0; i < _places.Length; i++)
-            {
-                _places[i] = null;
-            }
+            int width = picWidth / _placeSizeWidth;
+            int height = picHeight / _placeSizeHeight;
+            _places = new List<T>();
+            pictureWidth = picWidth;
+            pictureHeight = picHeight;
+            _maxCount = width * height;
         }
 
-        public static int operator +(Airport<T> p, T bomber)
+        public static bool operator +(Airport<T> p, T bomber)
         {
-            for (int i = 0; i < p._places.Length; i++)
+            if (p._places.Count >= p._maxCount)
             {
-                if (p._places[i] == null)
-                {
-                    p._places[i] = bomber;
-                    p._places[i].SetPosition(5 + i / 5 * _placeSizeWidth + 5,
-                     i % 5 * _placeSizeHeight + 15, p.PictureWidth,
-                    p.PictureHeight);
-                    return i;
-                }
+                return false;
             }
-            return -1;
+            p._places.Add(bomber);
+            return true;
         }
-
+          
         public static T operator -(Airport<T> p, int index)
         {
-            if (index >= 0 && index < p._places.Length)
+            if (index <= -1 && index >= p._places.Count)
             {
-                T warplane = p._places[index];
-                p._places[index] = null;
-                return warplane;
+                return null;
             }
-            return null;
+            T bomber = p._places[index];
+            p._places.RemoveAt(index);
+            return bomber;
         }
 
-        //метод отрисовки парковки
+        //Метод отрисовки парковки
         public void Draw(Graphics g)
         {
             DrawMarking(g);
-            for (int i = 0; i < _places.Length; i++)
+            for (int i = 0; i < _places.Count; i++)
             {
-                {
-                    _places[i]?.DrawFly(g);
-                }
+                _places[i].SetPosition(4 + i / 4 * _placeSizeWidth + 4, i % 4 *
+                   _placeSizeHeight + 25, pictureWidth, pictureHeight);
+                _places[i]?.DrawFly(g);
             }
         }
 
-        //метод отрисовки разметки
+        //Метод отрисовки разметки
         private void DrawMarking(Graphics g)
         {
-            Pen pen = new Pen(Color.Black, 3);
-            //границы праковки
-            g.DrawRectangle(pen, 0, 0, (_places.Length / 3) * _placeSizeWidth, 480);
-            for (int i = 0; i < _places.Length / 5; i++)
+            Pen pen = new Pen(Color.Black, 3);        
+            for (int i = 0; i < pictureWidth / _placeSizeWidth; i++)
             {
-                for (int j = 0; j < 4; ++j)
-                {//линия рамзетки места
-                    g.DrawLine(pen, i * _placeSizeWidth, j * _placeSizeHeight,
-                    i * _placeSizeWidth + 120, j * _placeSizeHeight);
-
-                    g.DrawLine(pen, i * _placeSizeWidth, 0, i * _placeSizeWidth, 400);
+                for (int j = 0; j < pictureHeight / _placeSizeHeight + 1; ++j)
+                {
+                    g.DrawLine(pen, i * _placeSizeWidth, j * _placeSizeHeight, i *
+                    _placeSizeWidth + _placeSizeWidth / 2, j * _placeSizeHeight);
                 }
+                g.DrawLine(pen, i * _placeSizeWidth, 0, i * _placeSizeWidth,
+                (pictureHeight / _placeSizeHeight) * _placeSizeHeight);
             }
         }
     }
