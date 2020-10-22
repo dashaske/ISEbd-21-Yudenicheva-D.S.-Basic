@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Airport.cs" />
+    <Compile Include="AirportCollection.cs" />
     <Compile Include="Bomber.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="FormAirport.cs">
