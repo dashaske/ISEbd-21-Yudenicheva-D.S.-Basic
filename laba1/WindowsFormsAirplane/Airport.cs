@@ -44,7 +44,7 @@ namespace WindowsFormsAirplane
             p._places.Add(bomber);
             return true;
         }
-          
+
         public static T operator -(Airport<T> p, int index)
         {
             if (index <= -1 && index >= p._places.Count)
@@ -71,7 +71,7 @@ namespace WindowsFormsAirplane
         //Метод отрисовки разметки
         private void DrawMarking(Graphics g)
         {
-            Pen pen = new Pen(Color.Black, 3);        
+            Pen pen = new Pen(Color.Black, 3);
             for (int i = 0; i < pictureWidth / _placeSizeWidth; i++)
             {
                 for (int j = 0; j < pictureHeight / _placeSizeHeight + 1; ++j)

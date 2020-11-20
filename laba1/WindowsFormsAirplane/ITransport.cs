@@ -14,5 +14,8 @@ namespace WindowsFormsAirplane
         void MoveTransport(Direction direction);
 
         void DrawFly(Graphics g);
+
+        // Смена основного цвета 
+        void SetMainColor(Color color);
     }
 }

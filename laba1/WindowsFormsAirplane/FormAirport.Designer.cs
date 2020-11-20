@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonSetBomber = new System.Windows.Forms.Button();
-            this.buttonSetWarPlane = new System.Windows.Forms.Button();
             this.buttonTakeBomber = new System.Windows.Forms.Button();
             this.groupBoxTake = new System.Windows.Forms.GroupBox();
             this.labelPlace = new System.Windows.Forms.Label();
@@ -40,31 +38,10 @@
             this.buttonAddAirport = new System.Windows.Forms.Button();
             this.listBoxAirport = new System.Windows.Forms.ListBox();
             this.buttonDelAirport = new System.Windows.Forms.Button();
+            this.buttonAddPlane = new System.Windows.Forms.Button();
             this.groupBoxTake.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAirport)).BeginInit();
             this.SuspendLayout();
-            // 
-            // buttonSetBomber
-            // 
-            this.buttonSetBomber.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonSetBomber.Location = new System.Drawing.Point(793, 268);
-            this.buttonSetBomber.Name = "buttonSetBomber";
-            this.buttonSetBomber.Size = new System.Drawing.Size(174, 32);
-            this.buttonSetBomber.TabIndex = 1;
-            this.buttonSetBomber.Text = "Посадить бомбардировщика";
-            this.buttonSetBomber.UseVisualStyleBackColor = false;
-            this.buttonSetBomber.Click += new System.EventHandler(this.buttonSetBomber_Click);
-            // 
-            // buttonSetWarPlane
-            // 
-            this.buttonSetWarPlane.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonSetWarPlane.Location = new System.Drawing.Point(793, 306);
-            this.buttonSetWarPlane.Name = "buttonSetWarPlane";
-            this.buttonSetWarPlane.Size = new System.Drawing.Size(174, 34);
-            this.buttonSetWarPlane.TabIndex = 2;
-            this.buttonSetWarPlane.Text = "Посадить военный самолет";
-            this.buttonSetWarPlane.UseVisualStyleBackColor = false;
-            this.buttonSetWarPlane.Click += new System.EventHandler(this.buttonSetWarPlane_Click);
             // 
             // buttonTakeBomber
             // 
@@ -157,11 +134,22 @@
             this.buttonDelAirport.UseVisualStyleBackColor = true;
             this.buttonDelAirport.Click += new System.EventHandler(this.buttonDelAirport_Click);
             // 
+            // buttonAddPlane
+            // 
+            this.buttonAddPlane.Location = new System.Drawing.Point(827, 271);
+            this.buttonAddPlane.Name = "buttonAddPlane";
+            this.buttonAddPlane.Size = new System.Drawing.Size(100, 48);
+            this.buttonAddPlane.TabIndex = 10;
+            this.buttonAddPlane.Text = "Добавить самолет";
+            this.buttonAddPlane.UseVisualStyleBackColor = true;
+            this.buttonAddPlane.Click += new System.EventHandler(this.buttonAddPlane_Click);
+            // 
             // FormAirport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(993, 558);
+            this.Controls.Add(this.buttonAddPlane);
             this.Controls.Add(this.buttonDelAirport);
             this.Controls.Add(this.listBoxAirport);
             this.Controls.Add(this.buttonAddAirport);
@@ -169,8 +157,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBoxAirport);
             this.Controls.Add(this.groupBoxTake);
-            this.Controls.Add(this.buttonSetWarPlane);
-            this.Controls.Add(this.buttonSetBomber);
             this.Name = "FormAirport";
             this.Text = "Аэропорт";
             this.groupBoxTake.ResumeLayout(false);
@@ -182,9 +168,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button buttonSetBomber;
-        private System.Windows.Forms.Button buttonSetWarPlane;
         private System.Windows.Forms.Button buttonTakeBomber;
         private System.Windows.Forms.GroupBox groupBoxTake;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxPlace;
@@ -195,5 +178,6 @@
         private System.Windows.Forms.Button buttonAddAirport;
         private System.Windows.Forms.ListBox listBoxAirport;
         private System.Windows.Forms.Button buttonDelAirport;
+        private System.Windows.Forms.Button buttonAddPlane;
     }
 }
