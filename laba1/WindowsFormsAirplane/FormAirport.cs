@@ -146,6 +146,30 @@ namespace WindowsFormsAirplane
         private void listBoxAirport_SelectedIndexChanged(object sender, EventArgs e)
         {
             Draw();
-        }      
+        }
+
+        // Обработка нажатия кнопки "Добавить самолет"
+        private void buttonAddPlane_Click(object sender, EventArgs e)
+        {
+            FormAirplaneConfig formWaterTransportConfig = new FormAirplaneConfig();
+            formWaterTransportConfig.AddEvent(AddPlane);
+            formWaterTransportConfig.ShowDialog();
+        }
+
+        /// Метод добавления самолета
+        private void AddPlane(Plane plane)
+        {
+            if (plane != null && listBoxAirport.SelectedIndex > -1)
+            {
+                if ((airportCollection[listBoxAirport.SelectedItem.ToString()]) + plane)
+                {
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Самолет не удалось посадить");
+                }
+            }
+        }
     }
 }

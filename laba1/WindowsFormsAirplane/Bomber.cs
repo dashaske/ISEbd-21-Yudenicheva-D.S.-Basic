@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace WindowsFormsAirplane
 {
     public class Bomber : WarPlane
-    {      
+    {
         /// Признак наличия звезды
         public bool Star { private set; get; }
 
@@ -17,7 +17,7 @@ namespace WindowsFormsAirplane
 
         /// Признак наличия ракет
         public bool Rocket { private set; get; }
-    
+
         public Bomber(int maxSpeed, float weight, Color mainColor, Color dopColor,
        bool star, bool bomb, bool rocket) :
         base(maxSpeed, weight, mainColor, dopColor)
@@ -92,6 +92,7 @@ namespace WindowsFormsAirplane
             //отрисовка тела
             if (Star)
             {
+                base.DrawFly(g);
                 Point point1 = new Point((int)_startPosX + 85, (int)_startPosY + 60);
                 Point point2 = new Point((int)_startPosX + 90, (int)_startPosY + 65);
                 Point point3 = new Point((int)_startPosX + 95, (int)_startPosY + 60);
@@ -108,8 +109,12 @@ namespace WindowsFormsAirplane
                 Point point12 = new Point((int)_startPosX + 85, (int)_startPosY + 40);
                 Point[] board1 = { point7, point8, point9, point10, point11, point12 };
                 g.DrawPolygon(pen, board1);
-                base.DrawFly(g);
             }
+        }
+        // Смена дополнительного цвета
+        public void SetDopColor(Color color)
+        {
+            DopColor = color;
         }
     }
 }
