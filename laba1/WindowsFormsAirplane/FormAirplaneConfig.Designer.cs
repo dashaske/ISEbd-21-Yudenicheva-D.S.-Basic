@@ -41,7 +41,7 @@
             this.labelWarPlane = new System.Windows.Forms.Label();
             this.pictureBoxPlane = new System.Windows.Forms.PictureBox();
             this.panelPlane = new System.Windows.Forms.Panel();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBoxColor = new System.Windows.Forms.GroupBox();
             this.panelBlue = new System.Windows.Forms.Panel();
             this.panelGreen = new System.Windows.Forms.Panel();
             this.panelWhite = new System.Windows.Forms.Panel();
@@ -60,7 +60,7 @@
             this.groupBoxType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlane)).BeginInit();
             this.panelPlane.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.groupBoxColor.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxParams
@@ -227,24 +227,24 @@
             this.panelPlane.DragDrop += new System.Windows.Forms.DragEventHandler(this.panelPlane_DragDrop);
             this.panelPlane.DragEnter += new System.Windows.Forms.DragEventHandler(this.panelPlane_DragEnter);
             // 
-            // groupBox3
+            // groupBoxColor
             // 
-            this.groupBox3.Controls.Add(this.panelBlue);
-            this.groupBox3.Controls.Add(this.panelGreen);
-            this.groupBox3.Controls.Add(this.panelWhite);
-            this.groupBox3.Controls.Add(this.panelBlack);
-            this.groupBox3.Controls.Add(this.panelOrange);
-            this.groupBox3.Controls.Add(this.panelGray);
-            this.groupBox3.Controls.Add(this.panelYellow);
-            this.groupBox3.Controls.Add(this.panelRed);
-            this.groupBox3.Controls.Add(this.labelDopColor);
-            this.groupBox3.Controls.Add(this.labelBaseColor);
-            this.groupBox3.Location = new System.Drawing.Point(510, 26);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(262, 182);
-            this.groupBox3.TabIndex = 4;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Цвета";
+            this.groupBoxColor.Controls.Add(this.panelBlue);
+            this.groupBoxColor.Controls.Add(this.panelGreen);
+            this.groupBoxColor.Controls.Add(this.panelWhite);
+            this.groupBoxColor.Controls.Add(this.panelBlack);
+            this.groupBoxColor.Controls.Add(this.panelOrange);
+            this.groupBoxColor.Controls.Add(this.panelGray);
+            this.groupBoxColor.Controls.Add(this.panelYellow);
+            this.groupBoxColor.Controls.Add(this.panelRed);
+            this.groupBoxColor.Controls.Add(this.labelDopColor);
+            this.groupBoxColor.Controls.Add(this.labelBaseColor);
+            this.groupBoxColor.Location = new System.Drawing.Point(510, 26);
+            this.groupBoxColor.Name = "groupBoxColor";
+            this.groupBoxColor.Size = new System.Drawing.Size(262, 182);
+            this.groupBoxColor.TabIndex = 4;
+            this.groupBoxColor.TabStop = false;
+            this.groupBoxColor.Text = "Цвета";
             // 
             // panelBlue
             // 
@@ -369,7 +369,7 @@
             this.ClientSize = new System.Drawing.Size(783, 374);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonAdd);
-            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBoxColor);
             this.Controls.Add(this.panelPlane);
             this.Controls.Add(this.groupBoxType);
             this.Controls.Add(this.groupBoxParams);
@@ -382,7 +382,7 @@
             this.groupBoxType.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlane)).EndInit();
             this.panelPlane.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
+            this.groupBoxColor.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -402,7 +402,7 @@
         private System.Windows.Forms.Label labelWarPlane;
         private System.Windows.Forms.PictureBox pictureBoxPlane;
         private System.Windows.Forms.Panel panelPlane;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBoxColor;
         private System.Windows.Forms.Panel panelBlue;
         private System.Windows.Forms.Panel panelGreen;
         private System.Windows.Forms.Panel panelWhite;
