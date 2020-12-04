@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using NLog;
 
 namespace WindowsFormsAirplane
 { //Класс-коллекция парковок
@@ -11,6 +12,8 @@ namespace WindowsFormsAirplane
     {
         //Словарь (хранилище) с парковками
         readonly Dictionary<string, Airport<ITransport>> airportStages;
+
+        private readonly Logger logger;
 
         //Возвращение списка названий праковок
         public List<string> Keys => airportStages.Keys.ToList();
@@ -26,6 +29,7 @@ namespace WindowsFormsAirplane
             airportStages = new Dictionary<string, Airport<ITransport>>();
             this.pictureWidth = pictureWidth;
             this.pictureHeight = pictureHeight;
+            logger = LogManager.GetCurrentClassLogger();
         }
         //Добавление парковки
         public void AddAirport(string name)
@@ -96,56 +100,60 @@ namespace WindowsFormsAirplane
             return true;
         }
         public bool LoadData(string filename)
-        {
+        {               
             if (!File.Exists(filename))
             {
-                return false;
+                logger.Warn("Выбран неверный файл для загрузки");
+                throw new FileNotFoundException();
             }
-
             using (StreamReader sr = new StreamReader(filename))
             {
                 Plane _plane = null;
-
                 string line = sr.ReadLine();
                 string key = string.Empty;
 
                 if (line.Contains("AirportCollection"))
                 {
                     airportStages.Clear();
-                    line = sr.ReadLine();
-                    while (line != null)
-                    {
-                        if (line.Contains("Airport"))
-                        {
-                            key = line.Split(separator)[1];
-                            airportStages.Add(key, new Airport<ITransport>(pictureWidth, pictureHeight));
-                            line = sr.ReadLine();
-                            continue;
-                        }
-                        if (string.IsNullOrEmpty(line))
-                        {
-                            line = sr.ReadLine();
-                            continue;
-                        }
-                        if (line.Split(separator)[0] == "WarPlane")
-                        {
-                            _plane = new WarPlane(line.Split(separator)[1]);
-                        }
-                        else if (line.Split(separator)[0] == "Bomber")
-                        {
-                            _plane = new Bomber(line.Split(separator)[1]);
-                        }
-                        var result = airportStages[key] + _plane;
-                        if (!result)
-                        {
-                            return false;
-                        }
-                        line = sr.ReadLine();
-                    }
-                    return true;
                 }
-                return false;
-            }
+                else
+                {
+                    logger.Warn("Выбран неверный формат файла");
+                    throw new FormatException("Неверный формат файла");
+                }
+                line = sr.ReadLine();
+                while (line != null)
+                {
+                    if (line.Contains("Airport"))
+                    {
+                        key = line.Split(separator)[1];
+                        airportStages.Add(key, new Airport<ITransport>(pictureWidth, pictureHeight));
+                        line = sr.ReadLine();
+                        continue;
+                    }
+                    if (string.IsNullOrEmpty(line))
+                    {
+                        line = sr.ReadLine();
+                        continue;
+                    }
+                    if (line.Split(separator)[0] == "WarPlane")
+                    {
+                        _plane = new WarPlane(line.Split(separator)[1]);
+                    }
+                    else if (line.Split(separator)[0] == "Bomber")
+                    {
+                        _plane = new Bomber(line.Split(separator)[1]);
+                    }
+                    var result = airportStages[key] + _plane;
+                    if (!result)
+                    {
+                        logger.Warn("При загрузке файла вызвано исключение AirportOccupiedPlaceException");
+                        throw new AirportOccupiedPlaceException();
+                    }
+                    line = sr.ReadLine();
+                }
+                return true;
+            }          
         }
     }
 }
