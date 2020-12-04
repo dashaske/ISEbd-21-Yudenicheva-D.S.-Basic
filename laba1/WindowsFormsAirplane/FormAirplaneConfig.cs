@@ -20,14 +20,14 @@ namespace WindowsFormsAirplane
         public FormAirplaneConfig()
         {
             InitializeComponent();
-            panelRed.MouseDown += panelColor_MouseDown;
-            panelGray.MouseDown += panelColor_MouseDown;
-            panelYellow.MouseDown += panelColor_MouseDown;
-            panelOrange.MouseDown += panelColor_MouseDown;
-            panelBlack.MouseDown += panelColor_MouseDown;
-            panelGreen.MouseDown += panelColor_MouseDown;
-            panelWhite.MouseDown += panelColor_MouseDown;
-            panelBlue.MouseDown += panelColor_MouseDown;
+            panelWhite.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
+            panelYellow.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
+            panelGray.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
+            panelBlack.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
+            panelGreen.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
+            panelBlue.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
+            panelOrange.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
+            panelRed.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
             buttonCancel.Click += (object sender, EventArgs e) => { Close(); };
         }
         private void DrawPlane()

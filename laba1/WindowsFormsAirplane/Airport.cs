@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using NLog;
 
 namespace WindowsFormsAirplane
 {// Параметризованный класс для хранения набора объектов от интерфейса ITransport
@@ -11,6 +12,8 @@ namespace WindowsFormsAirplane
     {
         //Массив объектов
         private readonly List<T> _places;
+
+        private readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         // Максимальное количество мест на парковке
         private readonly int _maxCount;
@@ -38,16 +41,18 @@ namespace WindowsFormsAirplane
         {
             if (p._places.Count >= p._maxCount)
             {
-                return false;
+                p.logger.Warn("Вызвано исключение AirportOverflowException");
+                throw new AirportOverflowException();
             }
             p._places.Add(bomber);
             return true;
         }
         public static T operator -(Airport<T> p, int index)
         {
-            if (index <= -1 && index >= p._places.Count)
+            if (index >= p._places.Count)
             {
-                return null;
+                p.logger.Warn("Вызвано исключение AirportNotFoundException");
+                throw new AirportNotFoundException(index);
             }
             T bomber = p._places[index];
             p._places.RemoveAt(index);
