@@ -34,7 +34,6 @@ namespace WindowsFormsAirplane
             pictureHeight = picHeight;
             _maxCount = width * height;
         }
-
         public static bool operator +(Airport<T> p, T bomber)
         {
             if (p._places.Count >= p._maxCount)
@@ -44,7 +43,6 @@ namespace WindowsFormsAirplane
             p._places.Add(bomber);
             return true;
         }
-
         public static T operator -(Airport<T> p, int index)
         {
             if (index <= -1 && index >= p._places.Count)
@@ -55,7 +53,6 @@ namespace WindowsFormsAirplane
             p._places.RemoveAt(index);
             return bomber;
         }
-
         //Метод отрисовки парковки
         public void Draw(Graphics g)
         {
@@ -63,11 +60,10 @@ namespace WindowsFormsAirplane
             for (int i = 0; i < _places.Count; i++)
             {
                 _places[i].SetPosition(4 + i / 4 * _placeSizeWidth + 4, i % 4 *
-                   _placeSizeHeight + 25, pictureWidth, pictureHeight);
+                   _placeSizeHeight + 15, pictureWidth, pictureHeight);
                 _places[i]?.DrawFly(g);
             }
         }
-
         //Метод отрисовки разметки
         private void DrawMarking(Graphics g)
         {
@@ -82,6 +78,14 @@ namespace WindowsFormsAirplane
                 g.DrawLine(pen, i * _placeSizeWidth, 0, i * _placeSizeWidth,
                 (pictureHeight / _placeSizeHeight) * _placeSizeHeight);
             }
+        }
+        public T GetNext(int index)
+        {
+            if (index < 0 || index >= _places.Count)
+            {
+                return null;
+            }
+            return _places[index];
         }
     }
 }

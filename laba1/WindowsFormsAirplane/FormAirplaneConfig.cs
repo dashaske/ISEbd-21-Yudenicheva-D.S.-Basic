@@ -30,7 +30,6 @@ namespace WindowsFormsAirplane
             panelBlue.MouseDown += panelColor_MouseDown;
             buttonCancel.Click += (object sender, EventArgs e) => { Close(); };
         }
-
         private void DrawPlane()
         {
             if (plane != null)
@@ -42,7 +41,6 @@ namespace WindowsFormsAirplane
                 pictureBoxPlane.Image = bmp;
             }
         }
-
         //Добавления события
         public void AddEvent(Action<Plane> ev)
         {
@@ -55,22 +53,16 @@ namespace WindowsFormsAirplane
                 eventAddPlane += ev;
             }
         }
-
-
         // Передаем информацию при нажатии на Label
         private void labelWarPlane_MouseDown(object sender, MouseEventArgs e)
         {
             labelWarPlane.DoDragDrop(labelWarPlane.Text, DragDropEffects.Move | DragDropEffects.Copy);
         }
-
-
-
         // Передаем информацию при нажатии на Label
         private void labelBomber_MouseDown(object sender, MouseEventArgs e)
         {
             labelBomber.DoDragDrop(labelBomber.Text, DragDropEffects.Move | DragDropEffects.Copy);
         }
-
         // Проверка получаемой информации (ее типа на соответствие требуемому)
         private void panelPlane_DragEnter(object sender, DragEventArgs e)
         {
@@ -83,7 +75,6 @@ namespace WindowsFormsAirplane
                 e.Effect = DragDropEffects.None;
             }
         }
-
         // Действия при приеме перетаскиваемой информации (создается либо военный, либо бомбардировщик)
         private void panelPlane_DragDrop(object sender, DragEventArgs e)
         {
@@ -91,7 +82,7 @@ namespace WindowsFormsAirplane
             {
                 case "Военный самолет":
                     plane = new WarPlane((int)numericUpDownMaxSpeed.Value,
-                        (int)numericUpDownWeight.Value, Color.White, Color.Black);
+                        (int)numericUpDownWeight.Value, Color.White);
                     break;
                 case "Бомбардировщик":
                     plane = new Bomber((int)numericUpDownMaxSpeed.Value,
@@ -101,14 +92,12 @@ namespace WindowsFormsAirplane
             }
             DrawPlane();
         }
-
         //Отправляем цвет с панели
         private void panelColor_MouseDown(object sender, MouseEventArgs e)
         {
             Control panelColor = (Control)sender;
             panelColor.DoDragDrop(panelColor.BackColor, DragDropEffects.Move | DragDropEffects.Copy);
         }
-
         // Проверка получаемой информации (ее типа на соответствие требуемому)  
         private void labelBaseColor_DragEnter(object sender, DragEventArgs e)
         {
@@ -121,7 +110,6 @@ namespace WindowsFormsAirplane
                 e.Effect = DragDropEffects.None;
             }
         }
-
         // Принимаем основной цвет
         private void labelBaseColor_DragDrop(object sender, DragEventArgs e)
         {
@@ -131,7 +119,6 @@ namespace WindowsFormsAirplane
                 DrawPlane();
             }
         }
-
         // Принимаем дополнительный цвет   
         private void labelDopColor_DragDrop(object sender, DragEventArgs e)
         {
@@ -142,7 +129,6 @@ namespace WindowsFormsAirplane
                 DrawPlane();
             }
         }
-
         // Добавление самолета
         private void buttonOk_Click(object sender, EventArgs e)
         {

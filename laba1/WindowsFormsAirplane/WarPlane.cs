@@ -9,31 +9,30 @@ namespace WindowsFormsAirplane
 {
     public partial class WarPlane : Plane
     {
-        /// <summary>
-        /// Ширина отрисовки самолета
-        /// </summary>
         protected readonly int planeWidth = 180;
-        /// <summary>
-        /// Ширина отрисовки самолета
-        /// </summary>
+      
         protected readonly int planeHeight = 60;
 
-        public Color DopColor { protected set; get; }
-        /// <summary>
-        /// Конструктор
-        /// </summary>
-        /// <param name="maxSpeed">Максимальная скорость</param>
-        /// <param name="weight">Вес самолета</param>
-        /// <param name="mainColor">Основной цвет</param>
-        public WarPlane(int maxSpeed, float weight, Color mainColor, Color dopColor)
+        //Разделитель для записи информации по объекту в файл
+        protected readonly char separator = ';';
+    
+        public WarPlane(int maxSpeed, float weight, Color mainColor)
         {
             MaxSpeed = maxSpeed;
             Weight = weight;
-            MainColor = mainColor;
-            DopColor = dopColor;
-
+            MainColor = mainColor;           
         }
-
+        // Конструктор для загрузки с файла
+        public WarPlane(string info)
+        {
+            string[] strs = info.Split(separator);
+            if (strs.Length == 3)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+            }
+        }
         //Конструктор с изменением размеров самолета
         protected WarPlane(int maxSpeed, float weight, Color mainColor, int planeWidth, int planeHeight)
         {
@@ -79,7 +78,6 @@ namespace WindowsFormsAirplane
                     break;
             }
         }
-
         public override void DrawFly(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
@@ -109,6 +107,10 @@ namespace WindowsFormsAirplane
             Brush brBlue = new SolidBrush(MainColor);
             g.FillEllipse(brBlue, _startPosX + 70, _startPosY + 42, 30, 15);           //центральный круг
             g.DrawEllipse(pen, _startPosX + 70, _startPosY + 42, 30, 15);
+        }
+        public override string ToString()
+        {
+            return $"{MaxSpeed}{separator}{Weight}{separator}{MainColor.Name}";
         }
     }
 }
