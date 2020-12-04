@@ -81,51 +81,6 @@ namespace WindowsFormsAirplane
                 }
             }
         }
-
-        //Обработка нажатия кнопки "Посадить военный самолет"
-        private void buttonSetWarPlane_Click(object sender, EventArgs e)
-        {
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                var air = new WarPlane(100, 1000, dialog.Color, dopColor: Color.Gray);
-                if (airportCollection[listBoxAirport.SelectedItem.ToString()] + air)
-                {
-                    Draw();
-                }
-                else
-                {
-                    MessageBox.Show("Не удалось посадить военный самолет");
-                }
-            }
-        }
-
-        //Обработка нажатия кнопки "Посадить бомбардировщик"
-        private void buttonSetBomber_Click(object sender, EventArgs e)
-        {
-            if (listBoxAirport.SelectedIndex > -1)
-            {
-                ColorDialog dialog = new ColorDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    ColorDialog dialogDop = new ColorDialog();
-                    if (dialogDop.ShowDialog() == DialogResult.OK)
-                    {
-                        var bomber = new Bomber(100, 1000, dialog.Color, dialogDop.Color,
-                        true, true, true);
-                        if (airportCollection[listBoxAirport.SelectedItem.ToString()] + bomber)
-                        {
-                            Draw();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Не удалось посадить бомбардировщик");
-                        }
-                    }
-                }
-            }
-        }
-
         //Обработка кнопки "Забрать"
         private void buttonTakeBomber_Click(object sender, EventArgs e)
         {
@@ -141,13 +96,11 @@ namespace WindowsFormsAirplane
                 Draw();
             }
         }
-
         //Метод обработки выбора элемента на listBoxLevels
         private void listBoxAirport_SelectedIndexChanged(object sender, EventArgs e)
         {
             Draw();
         }
-
         // Обработка нажатия кнопки "Добавить самолет"
         private void buttonAddPlane_Click(object sender, EventArgs e)
         {
@@ -155,7 +108,6 @@ namespace WindowsFormsAirplane
             formWaterTransportConfig.AddEvent(AddPlane);
             formWaterTransportConfig.ShowDialog();
         }
-
         /// Метод добавления самолета
         private void AddPlane(Plane plane)
         {
@@ -168,6 +120,36 @@ namespace WindowsFormsAirplane
                 else
                 {
                     MessageBox.Show("Самолет не удалось посадить");
+                }
+            }
+        }
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (airportCollection.SaveData(saveFileDialog.FileName))
+                {
+                    MessageBox.Show("Сохранение прошло успешно =)", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Не сохранено =(", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void загрузитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (airportCollection.LoadData(openFileDialog.FileName))
+                {
+                    MessageBox.Show("Загружено =)", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ReloadLevels();
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Не загружено, повторите попытку снова!", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

@@ -18,14 +18,39 @@ namespace WindowsFormsAirplane
         /// Признак наличия ракет
         public bool Rocket { private set; get; }
 
+        public Color DopColor { protected set; get; }
+
+        // Смена дополнительного цвета
+        public void SetDopColor(Color color)
+        {
+            DopColor = color;
+        }
         public Bomber(int maxSpeed, float weight, Color mainColor, Color dopColor,
        bool star, bool bomb, bool rocket) :
-        base(maxSpeed, weight, mainColor, dopColor)
+        base(maxSpeed, weight, mainColor)
         {
+            MaxSpeed = maxSpeed;
+            Weight = weight;
+            MainColor = mainColor;
             DopColor = dopColor;
             Star = star;
             Bomb = bomb;
             Rocket = rocket;
+        }
+        //Конструктор для загрузки с файла
+        public Bomber(string info) : base(info)
+        {
+            string[] strs = info.Split(separator);
+            if (strs.Length == 7)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+                DopColor = Color.FromName(strs[3]);
+                Star = Convert.ToBoolean(strs[4]);
+                Bomb = Convert.ToBoolean(strs[5]);
+                Rocket = Convert.ToBoolean(strs[6]);
+            }
         }
         /// <summary>
         /// Изменение направления пермещения
@@ -66,7 +91,6 @@ namespace WindowsFormsAirplane
                     break;
             }
         }
-
         public override void DrawFly(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
@@ -111,10 +135,11 @@ namespace WindowsFormsAirplane
                 g.DrawPolygon(pen, board1);
             }
         }
-        // Смена дополнительного цвета
-        public void SetDopColor(Color color)
+        public override string ToString()
         {
-            DopColor = color;
+            return $"{base.ToString()}{separator}{DopColor.Name}" +
+                   $"{separator}{Star}{separator}{Bomb}" +
+                   $"{separator}{Rocket}";
         }
     }
 }
