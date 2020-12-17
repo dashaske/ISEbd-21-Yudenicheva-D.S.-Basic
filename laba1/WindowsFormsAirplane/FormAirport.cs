@@ -116,6 +116,7 @@ namespace WindowsFormsAirplane
         //Метод обработки выбора элемента на listBoxLevels
         private void listBoxAirport_SelectedIndexChanged(object sender, EventArgs e)
         {
+            logger.Info($"Перешли на аэропорт {listBoxAirport.SelectedItem.ToString()}");
             Draw();
         }
         // Обработка нажатия кнопки "Добавить самолет"
@@ -147,6 +148,11 @@ namespace WindowsFormsAirplane
                 {
                     logger.Warn("Вызвано исключение переполнения аэропорта!");
                     MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (AirportAlreadyHaveException ex)
+                {
+                    MessageBox.Show(ex.Message, "Дублирование", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
@@ -205,6 +211,16 @@ namespace WindowsFormsAirplane
                     MessageBox.Show(ex.Message, "Неизвестная ошибка при загрузке",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            if (listBoxAirport.SelectedIndex > -1)
+            {
+                airportCollection[listBoxAirport.SelectedItem.ToString()].Sort();
+                Draw();
+                logger.Info("Сортировка уровней");
             }
         }
     }

@@ -1,32 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-using NLog;
 
 namespace WindowsFormsAirplane
 {// Параметризованный класс для хранения набора объектов от интерфейса ITransport
-    public class Airport<T> where T : class, ITransport
+    public class Airport<T> : IEnumerator<T>, IEnumerable<T>
+        where T : class, ITransport
     {
         //Массив объектов
         private readonly List<T> _places;
-
-        private readonly Logger logger = LogManager.GetCurrentClassLogger();
-
-        // Максимальное количество мест на парковке
+       
         private readonly int _maxCount;
 
         private readonly int pictureWidth;
 
         private readonly int pictureHeight;
 
-        //Высота парковочного места
         private readonly int _placeSizeWidth = 210;
 
-        //Ширина парковочного места
         private readonly int _placeSizeHeight = 133;
+
+        private int _currentIndex;
+        public T Current => _places[_currentIndex];
+        object IEnumerator.Current => _places[_currentIndex];
 
         public Airport(int picWidth, int picHeight)
         {
@@ -41,8 +41,11 @@ namespace WindowsFormsAirplane
         {
             if (p._places.Count >= p._maxCount)
             {
-                p.logger.Warn("Вызвано исключение AirportOverflowException");
                 throw new AirportOverflowException();
+            }
+            if (p._places.Contains(bomber))
+            {
+                throw new AirportAlreadyHaveException();
             }
             p._places.Add(bomber);
             return true;
@@ -51,7 +54,6 @@ namespace WindowsFormsAirplane
         {
             if (index >= p._places.Count)
             {
-                p.logger.Warn("Вызвано исключение AirportNotFoundException");
                 throw new AirportNotFoundException(index);
             }
             T bomber = p._places[index];
@@ -91,6 +93,30 @@ namespace WindowsFormsAirplane
                 return null;
             }
             return _places[index];
+        }
+        public void Sort() => _places.Sort((IComparer<T>)new PlaneComparer());
+
+        public void Dispose() { }
+
+        public bool MoveNext()
+        {
+            _currentIndex++;
+            return _currentIndex < _places.Count;
+        }
+
+        public void Reset()
+        {
+            _currentIndex = -1;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this;
         }
     }
 }
