@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsAirplane
 {
-    public partial class WarPlane : Plane
+    public partial class WarPlane : Plane, IEquatable<WarPlane>
     {
         protected readonly int planeWidth = 180;
       
@@ -111,6 +111,46 @@ namespace WindowsFormsAirplane
         public override string ToString()
         {
             return $"{MaxSpeed}{separator}{Weight}{separator}{MainColor.Name}";
+        }
+        public bool Equals(WarPlane other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return false;
+            }
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
+            if (MainColor != other.MainColor)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is WarPlane shipObj))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(shipObj);
+            }
         }
     }
 }

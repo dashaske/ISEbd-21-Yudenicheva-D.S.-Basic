@@ -45,6 +45,7 @@
             this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.buttonSort = new System.Windows.Forms.Button();
             this.groupBoxTake.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAirport)).BeginInit();
             this.msMenu.SuspendLayout();
@@ -65,7 +66,7 @@
             this.groupBoxTake.Controls.Add(this.labelPlace);
             this.groupBoxTake.Controls.Add(this.maskedTextBoxPlace);
             this.groupBoxTake.Controls.Add(this.buttonTakeBomber);
-            this.groupBoxTake.Location = new System.Drawing.Point(767, 356);
+            this.groupBoxTake.Location = new System.Drawing.Point(764, 378);
             this.groupBoxTake.Name = "groupBoxTake";
             this.groupBoxTake.Size = new System.Drawing.Size(217, 137);
             this.groupBoxTake.TabIndex = 3;
@@ -192,11 +193,22 @@
             // 
             this.openFileDialog.Filter = "txt file | *.txt";
             // 
+            // buttonSort
+            // 
+            this.buttonSort.Location = new System.Drawing.Point(827, 334);
+            this.buttonSort.Name = "buttonSort";
+            this.buttonSort.Size = new System.Drawing.Size(100, 38);
+            this.buttonSort.TabIndex = 12;
+            this.buttonSort.Text = "Сортировать";
+            this.buttonSort.UseVisualStyleBackColor = true;
+            this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
+            // 
             // FormAirport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(993, 558);
+            this.Controls.Add(this.buttonSort);
             this.Controls.Add(this.buttonAddPlane);
             this.Controls.Add(this.buttonDelAirport);
             this.Controls.Add(this.listBoxAirport);
@@ -237,5 +249,6 @@
         private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button buttonSort;
     }
 }

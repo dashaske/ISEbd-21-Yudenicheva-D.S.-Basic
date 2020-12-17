@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsAirplane
 {
-    public class Bomber : WarPlane
+    public class Bomber : WarPlane, IEquatable<Bomber>
     {
         /// Признак наличия звезды
         public bool Star { private set; get; }
@@ -140,6 +140,62 @@ namespace WindowsFormsAirplane
             return $"{base.ToString()}{separator}{DopColor.Name}" +
                    $"{separator}{Star}{separator}{Bomb}" +
                    $"{separator}{Rocket}";
+        }
+        public bool Equals(Bomber other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return false;
+            }
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
+            if (MainColor != other.MainColor)
+            {
+                return false;
+            }
+            if (DopColor != other.DopColor)
+            {
+                return false;
+            }
+            if (Star != other.Star)
+            {
+                return false;
+            }
+            if (Bomb != other.Bomb)
+            {
+                return false;
+            }
+            if (Rocket != other.Rocket)
+            {
+                return false;
+            }
+            return true;
+
+        }
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is Bomber bomberObj))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(bomberObj);
+            }
         }
     }
 }
